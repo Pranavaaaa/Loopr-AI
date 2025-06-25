@@ -1,0 +1,39 @@
+{
+  "name": "ats_architects",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "server": "cd server && npm start",
+    "frontend": "cd frontend && npm run dev",
+    "dev": "concurrently -k \"npm run server\" \"npm run frontend\"",
+    "installModules": "npm install && cd server && npm install && cd ../client && npm install"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@google-cloud/local-auth": "^3.0.1",
+    "@google/generative-ai": "^0.21.0",
+    "@heroicons/react": "^2.2.0",
+    "axios": "^1.7.9",
+    "body-parser": "^1.20.3",
+    "chart.js": "^4.4.7",
+    "dotenv": "^16.5.0",
+    "ejs": "^3.1.10",
+    "express": "^4.21.2",
+    "googleapis": "^144.0.0",
+    "jsonwebtoken": "^9.0.2",
+    "nodemon": "^3.1.9",
+    "react-chartjs-2": "^5.2.0",
+    "react-icons": "^5.4.0",
+    "sucrase": "^3.35.0",
+    "ts-interface-checker": "^1.0.2"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.20",
+    "concurrently": "^9.1.2",
+    "postcss": "^8.4.49",
+    "tailwindcss": "^3.4.16"
+  }
+}
