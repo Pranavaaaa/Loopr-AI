@@ -1,4 +1,4 @@
-import { Transaction } from "../models/transaction.model.js";
+import { Transaction } from "../models/transaction.model";
 import { Parser } from "json2csv";
 const exportCSV = async (req, res) => {
     try {
