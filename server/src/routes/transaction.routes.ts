@@ -4,8 +4,7 @@ import transactionController from "../controllers/transaction.controller.js";
 
 const router: Router = express.Router();
 
-// router.get("/", authUser, transactionController.getTransactions);
-// router.post("/", authUser, transactionController.createTransaction);
+router.get("/", authUser, transactionController.getAllTransactions);
 router.get("/export", authUser, transactionController.exportCSV);
 
 export default router;
