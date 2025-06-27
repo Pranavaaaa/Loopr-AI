@@ -1,10 +1,29 @@
-import React, { createContext, useState, useContext, useEffect } from 'react';
-import { getCurrentUser, logout } from '../services/authServices.tsx';
+import React, { createContext, useState, useContext, useEffect, } from 'react';
+import type { ReactNode } from 'react';
+import { getCurrentUser, logout as logoutService } from '../services/authServices';
 
-export const AuthContext = createContext(null);
+// Define the user type (customize as needed)
+interface User {
+  [key: string]: any;
+}
 
-export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
+// Define the context type
+interface AuthContextType {
+  user: User | null;
+  isAuthenticated: boolean;
+  login: (userData: User) => void;
+  logout: () => void;
+}
+
+// Create context with default value
+export const AuthContext = createContext<AuthContextType | undefined>(undefined);
+
+interface AuthProviderProps {
+  children: ReactNode;
+}
+
+export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
+  const [user, setUser] = useState<User | null>(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   useEffect(() => {
@@ -15,13 +34,13 @@ export const AuthProvider = ({ children }) => {
     }
   }, []);
   
-  const login = (userData) => {
+  const login = (userData: User) => {
     setUser(userData);
     setIsAuthenticated(true);
   };
 
-  const signOut = () => {
-    logout();
+  const logout = () => {
+    logoutService();
     setUser(null);
     setIsAuthenticated(false);
   };
@@ -31,7 +50,7 @@ export const AuthProvider = ({ children }) => {
       user, 
       isAuthenticated, 
       login, 
-      logout: signOut 
+      logout 
     }}>
       {children}
     </AuthContext.Provider>
@@ -40,7 +59,7 @@ export const AuthProvider = ({ children }) => {
 
 export const useAuth = () => {
   const context = useContext(AuthContext);
-  if (!context) {
+  if (context === undefined) {
     throw new Error('useAuth must be used within an AuthProvider');
   }
   return context;

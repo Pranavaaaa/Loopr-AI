@@ -1,22 +1,24 @@
-import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
-import Register from './pages/Register';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Login from './pages/Login';
-// import Dashboard from './pages/Dashboard';
+import TransactionsPage from './pages/TransactionsPage';
 import { AuthProvider } from './context/AuthContext';
+import ProtectedRoute from './routes/ProtectedRoute';
 
 function App() {
   return (
     <AuthProvider>
       <BrowserRouter>
-        {/* <nav className="p-4 bg-gray-100">
-          <Link to="/" className="mr-4">Home</Link>
-          <Link to="/register">Register</Link>
-        </nav> */}
         <Routes>
           <Route path="/" element={<Login />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          {/* <Route path="/dashboard" element={<Dashboard />} /> */}
+          <Route
+            path="/transactions"
+            element={
+              <ProtectedRoute>
+                <TransactionsPage />
+              </ProtectedRoute>
+            }
+          />
         </Routes>
       </BrowserRouter>
     </AuthProvider>
