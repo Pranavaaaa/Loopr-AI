@@ -249,20 +249,22 @@ const TransactionsPage: React.FC = () => {
             </Row>
           </div>
 
-          <TransactionTable
-            data={data}
-            currentPage={filters.page}
-            onPageChange={(newPage) => setFilters({ ...filters, page: newPage })}
-            totalPages={totalPages}
-          />
-          <Button
+          <div className="div" style={{ display: "flex", justifyContent: "end", alignContent: "center"  }}><Button
+            style={{ marginBottom: 16 }}
             icon={<DownloadOutlined />}
             type="primary"
             onClick={() => setExportOpen(true)}
           >
             Export CSV
           </Button>
-          <ExportModal open={exportOpen} onClose={() => setExportOpen(false)} filters={filters} />
+          <ExportModal open={exportOpen} onClose={() => setExportOpen(false)} filters={filters} /></div>
+
+          <TransactionTable
+            data={data}
+            currentPage={filters.page}
+            onPageChange={(newPage) => setFilters({ ...filters, page: newPage })}
+            totalPages={totalPages}
+          />
         </Content>
       </BlurLoadingOverlay>
     </Layout>

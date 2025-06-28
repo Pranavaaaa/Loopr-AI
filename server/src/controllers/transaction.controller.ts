@@ -73,7 +73,6 @@ const exportCSV: RequestHandler = async (req: Request, res: Response): Promise<v
       ];
     }
     // --- End filtering logic ---
-    console.log("Exporting transactions with filter:", filter);
 
     const transactions = await Transaction.find(filter).lean() as TransactionData[];
 
@@ -158,7 +157,6 @@ export const getAllTransactions = async (req: Request, res: Response) => {
       transactions
     });
   } catch (error) {
-    console.error("Error fetching transactions:", error);
     res.status(500).json({ message: "Internal Server Error" });
   }
 };
