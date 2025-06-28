@@ -2,10 +2,8 @@ import { Transaction } from "../models/transaction.model.js";
 import { Parser } from "json2csv";
 const exportCSV = async (req, res) => {
     try {
-        // Type assertion to access user property
         const authenticatedReq = req;
         const { columns } = authenticatedReq.query;
-        // Updated default fields to match the actual model structure
         let fields;
         if (typeof columns === "string") {
             fields = columns.split(",");
@@ -13,8 +11,40 @@ const exportCSV = async (req, res) => {
         else {
             fields = ["id", "date", "amount", "category", "status", "user_id", "user_profile"];
         }
-        // Query using user_id instead of user to match the model
-        const transactions = await Transaction.find({ user_id: authenticatedReq.user._id }).lean();
+        // --- Filtering logic (copy from getAllTransactions) ---
+        const { category, status, user_id, startDate, endDate, minAmount, maxAmount, search, } = req.query;
+        const filter = {};
+        if (category)
+            filter.category = category;
+        if (status)
+            filter.status = status;
+        if (user_id)
+            filter.user_id = user_id;
+        if (startDate || endDate) {
+            filter.date = {};
+            if (startDate)
+                filter.date.$gte = new Date(startDate);
+            if (endDate)
+                filter.date.$lte = new Date(endDate);
+        }
+        if (minAmount || maxAmount) {
+            filter.amount = {};
+            if (minAmount)
+                filter.amount.$gte = parseFloat(minAmount);
+            if (maxAmount)
+                filter.amount.$lte = parseFloat(maxAmount);
+        }
+        if (search) {
+            const searchRegex = new RegExp(search, "i");
+            filter.$or = [
+                { user_id: searchRegex },
+                { category: searchRegex },
+                { status: searchRegex }
+            ];
+        }
+        // --- End filtering logic ---
+        console.log("Exporting transactions with filter:", filter);
+        const transactions = await Transaction.find(filter).lean();
         const parser = new Parser({ fields });
         const csv = parser.parse(transactions);
         res.header("Content-Type", "text/csv");

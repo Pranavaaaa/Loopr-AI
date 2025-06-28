@@ -1,4 +1,4 @@
-import React, { createContext, useState, useContext, useEffect, } from 'react';
+import React, { createContext, useState, useContext, useEffect } from 'react';
 import type { ReactNode } from 'react';
 import { getCurrentUser, logout as logoutService } from '../services/authServices';
 
@@ -13,6 +13,7 @@ interface AuthContextType {
   isAuthenticated: boolean;
   login: (userData: User) => void;
   logout: () => void;
+  loading: boolean;
 }
 
 // Create context with default value
@@ -25,13 +26,19 @@ interface AuthProviderProps {
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const currentUser = getCurrentUser();
-    if (currentUser) {
+    const token = localStorage.getItem("token");
+    if (currentUser && token) {
       setUser(currentUser);
       setIsAuthenticated(true);
+    } else {
+      setUser(null);
+      setIsAuthenticated(false);
     }
+    setLoading(false);
   }, []);
   
   const login = (userData: User) => {
@@ -50,7 +57,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       user, 
       isAuthenticated, 
       login, 
-      logout 
+      logout,
+      loading
     }}>
       {children}
     </AuthContext.Provider>
