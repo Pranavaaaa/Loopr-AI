@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL =  'http://localhost:4000/'; // Update with your actual API URL
+const API_URL =  'https://loopr-ai.onrender.com'; // Update with your actual API URL
 
 const api = axios.create({
   baseURL: API_URL,
