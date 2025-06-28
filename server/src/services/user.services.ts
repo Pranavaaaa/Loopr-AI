@@ -27,8 +27,6 @@ const createUser = async ({ firstname, lastname, email, password }: CreateUserPa
       password,
     });
 
-    console.log(user, "user.services");
-
     return user;
   } catch (error) {
     if (error instanceof Error) {
