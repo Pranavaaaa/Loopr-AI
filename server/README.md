@@ -1,481 +1,287 @@
-# Backend API Documentation
+# Loopr AI – Full Stack Application
 
-## `/users/register` Endpoint
+A modern full-stack application with a React + TypeScript + Vite frontend and a Node.js + Express + MongoDB backend.  
+Includes authentication, transaction management, analytics dashboard, and CSV export.
 
-### Description
+---
 
-Registers a new user by creating a user account with the provided information.
+## Table of Contents
 
-### HTTP Method
+- [Features](#features)
+- [Tech Stack](#tech-stack)
+- [Live Demo](#live-demo)
+- [Folder Structure](#folder-structure)
+- [Setup Instructions](#setup-instructions)
+- [Scripts](#scripts)
+- [API Endpoints](#api-endpoints)
+  - [User Authentication](#user-authentication)
+  - [Transactions](#transactions)
+  - [Analytics](#analytics)
+- [Usage Examples](#usage-examples)
+- [Frontend Usage](#frontend-usage)
+- [Backend Usage](#backend-usage)
+- [CSV Export](#csv-export)
+- [Contribution Guidelines](#contribution-guidelines)
+- [Contact](#contact)
+- [License](#license)
 
-`POST`
+---
 
-### Request Body
+## Features
 
-The request body should be in JSON format and include the following fields:
+- Analyst login, logout, and JWT authentication
+- Transaction filtering, and pagination
+- Analytics dashboard with charts (Ant Design, Recharts)
+- CSV export with column selection and filter support
+- Modern UI with Ant Design and Tailwind CSS
 
-- `fullname` (object):
-  - `firstname` (string, required): User's first name (minimum 3 characters).
-  - `lastname` (string, optional): User's last name (minimum 3 characters).
-- `email` (string, required): User's email address (must be a valid email).
-- `password` (string, required): User's password (minimum 6 characters).
+---
 
-### Example Response
+## 🛠️ Tech Stack
 
-- `user` (object):
-  - `fullname` (object).
-    - `firstname` (string): User's first name (minimum 3 characters).
-    - `lastname` (string): User's last name (minimum 3 characters).   
-  - `email` (string): User's email address (must be a valid email).
-  - `password` (string): User's password (minimum 6 characters).
-- `token` (String): JWT Token
+- **Frontend:** React.js, TypeScript, Vite, Tailwind CSS, Ant Design, Recharts
+- **Backend:** Node.js, Express.js, TypeScript, MongoDB (Mongoose)
+- **Other:** JWT for authentication
 
-## `/users/login` Endpoint
+---
 
-### Description
+### 🌐 Live Demo
 
-Authenticates a user using their email and password, returning a JWT token upon successful login.
+Use the following login to access the dashboard
 
-### HTTP Method
+📧 Email:    analyst@looprai-demo.com  
+🔑 Password: demo123
 
-`POST`
+Frontend:  
+Backend API: 
 
-### Endpoint
+🔐 Use credentials above to log in and test all features.
 
-`/users/login`
 
-### Request Body
+## 📂 Folder Structure
 
-The request body should be in JSON format and include the following fields:
+```
+📦 loopr-ai
+├── frontend/       # Frontend (React + Tailwind + Ant Design)
+├── server/         # Backend (Express.js + MongoDB)
+├── package.json    # Root scripts for setup
+├── README.md       # Project documentation
+```
 
-- `email` (string, required): User's email address (must be a valid email).
-- `password` (string, required): User's password (minimum 6 characters).
+---
 
-### Example Response
+## 🚀 How to Run the Project
 
-- `user` (object):
-  - `fullname` (object).
-    - `firstname` (string): User's first name (minimum 3 characters).
-    - `lastname` (string): User's last name (minimum 3 characters).   
-  - `email` (string): User's email address (must be a valid email).
-  - `password` (string): User's password (minimum 6 characters).
-- `token` (String): JWT Token
+### 1. Prerequisites
 
-## `/users/profile` Endpoint
+- **Node.js** (v18+ recommended)
+- **MongoDB** (local or cloud)
 
-### Description
+### 2. Clone the Repository
 
-Retrieves the profile information of the currently authenticated user.
+```bash
+git clone https://github.com/Pranavaaaa/Loopr-AI.git
+cd Loopr-AI
+```
 
-### HTTP Method
+### 3. Install All Dependencies
 
-`GET`
+```bash
+npm installModules
+```
 
-### Authentication
+This will install dependencies for both frontend and backend using the root `package.json`.
 
-Requires a valid JWT token in the Authorization header:
-`Authorization: Bearer <token>`
+### 4. Environment Variables
 
-### Example Response
+Create a `.env` file in `/server` with:
 
-- `user` (object):
-  - `fullname` (object).
-    - `firstname` (string): User's first name (minimum 3 characters).
-    - `lastname` (string): User's last name (minimum 3 characters).   
-  - `email` (string): User's email address (must be a valid email).
+```
+DB_CONNECT=mongodb+srv://<username>:<password>@cluster0.mongodb.net/your-db-name
+JWT_SECRET=your_jwt_secret
+PORT=4000
 
+for Evaluation Purpose use ADMIN EMAIL - analyst@looprai-demo.com and ADMIN PASSWORD - demo123
+```
 
+Adjust values as needed.
 
-## `/users/logout` Endpoint
+### 5. Start the Development Environment
 
-### Description
+```bash
+npm run dev
+```
 
-Logout the current user and blacklist the token provided in cookie or headers
+- Backend: http://localhost:4000
+- Frontend: http://localhost:5173
 
-### HTTP Method
+---
 
-`GET`
+## Scripts
 
-### Authentication
+| Script                  | Description                                 |
+|-------------------------|---------------------------------------------|
+| `npm installModules`    | Installs all dependencies                   |
+| `npm run dev`           | Runs backend and frontend concurrently      |
+| `npm run server`        | Runs backend server only                    |
+| `npm run frontend`      | Runs frontend (React/Vite) only             |
 
-Requires a valid JWT token in the Authorization header or cookie:
+---
 
-- `user` (object):
-  - `fullname` (object).
-    - `firstname` (string): User's first name (minimum 3 characters).
-    - `lastname` (string): User's last name (minimum 3 characters).   
-  - `email` (string): User's email address (must be a valid email).
-  - `password` (string): User's password (minimum 6 characters).
-- `token` (String): JWT Token## `/captains/register` Endpoint
+### 6. Load data to MongoDB using Script
 
-### Description
+First place <yourfilename>.json in `server` folder and then run following Script
 
-Registers a new captain by creating a captain account with the provided information.
+## 1. First change directory to server
 
-### HTTP Method
+```bash
+cd server
+```
 
-`POST`
+## 2. Run following Script
 
-### Request Body
+```bash
+npm run transactions:load
+```
 
-The request body should be in JSON format and include the following fields:
+## API Endpoints
 
-- `fullname` (object):
-  - `firstname` (string, required): Captain's first name (minimum 3 characters)
-  - `lastname` (string, optional): Captain's last name
-- `email` (string, required): Captain's email address (must be a valid email)
-- `password` (string, required): Captain's password (minimum 6 characters)
-- `vehicle` (object):
-  - `color` (string, required): Vehicle color (minimum 3 characters)
-  - `plate` (string, required): Vehicle plate number (minimum 3 characters)
-  - `capacity` (number, required): Vehicle passenger capacity (minimum 1)
-  - `vehicleType` (string, required): Type of vehicle (must be 'car', 'motorcycle', or 'auto')
+### User Authentication
 
-### Example Response
+| Endpoint           | Method | Description                |
+|--------------------|--------|----------------------------|
+| `/users/register`  | POST   | Register a new user        |
+| `/users/login`     | POST   | Login and get JWT token    |
+| `/users/logout`    | GET    | Logout and blacklist token |
 
+#### Example: Register
 
-## `/captains/register` Endpoint
+```http
+POST /users/register
+Content-Type: application/json
 
-### Description
-
-Registers a new captain by creating a captain account with the provided information.
-
-### HTTP Method
-
-`POST`
-
-### Request Body
-
-The request body should be in JSON format and include the following fields:
-
-- `fullname` (object):
-  - `firstname` (string, required): Captain's first name (minimum 3 characters).
-  - `lastname` (string, optional): Captain's last name (minimum 3 characters).
-- `email` (string, required): Captain's email address (must be a valid email).
-- `password` (string, required): Captain's password (minimum 6 characters).
-- `vehicle` (object):
-  - `color` (string, required): Vehicle color (minimum 3 characters).
-  - `plate` (string, required): Vehicle plate number (minimum 3 characters).
-  - `capacity` (number, required): Vehicle passenger capacity (minimum 1).
-  - `vehicleType` (string, required): Type of vehicle (must be 'car', 'motorcycle', or 'auto').
-
-### Example Response
-
-- `captain` (object):
-  - `fullname` (object).
-    - `firstname` (string): Captain's first name (minimum 3 characters).
-    - `lastname` (string): Captain's last name (minimum 3 characters).   
-  - `email` (string): Captain's email address (must be a valid email).
-  - `password` (string): Captain's password (minimum 6 characters).
-  - `vehicle` (object):
-    - `color` (string): Vehicle color.
-    - `plate` (string): Vehicle plate number.
-    - `capacity` (number): Vehicle passenger capacity.
-    - `vehicleType` (string): Type of vehicle.
-- `token` (String): JWT Token
-
-## `/captains/login` Endpoint
-
-### Description
-
-Authenticates a captain using their email and password, returning a JWT token upon successful login.
-
-### HTTP Method
-
-`POST`
-
-### Endpoint
-
-`/captains/login`
-
-### Request Body
-
-The request body should be in JSON format and include the following fields:
-
-- `email` (string, required): Captain's email address (must be a valid email).
-- `password` (string, required): Captain's password (minimum 6 characters).
-
-### Example Response
-
-- `captain` (object):
-  - `fullname` (object).
-    - `firstname` (string): Captain's first name (minimum 3 characters).
-    - `lastname` (string): Captain's last name (minimum 3 characters).   
-  - `email` (string): Captain's email address (must be a valid email).
-  - `password` (string): Captain's password (minimum 6 characters).
-  - `vehicle` (object):
-    - `color` (string): Vehicle color.
-    - `plate` (string): Vehicle plate number.
-    - `capacity` (number): Vehicle passenger capacity.
-    - `vehicleType` (string): Type of vehicle.
-- `token` (String): JWT Token
-
-## `/captains/profile` Endpoint
-
-### Description
-
-Retrieves the profile information of the currently authenticated captain.
-
-### HTTP Method
-
-`GET`
-
-### Authentication
-
-Requires a valid JWT token in the Authorization header:
-`Authorization: Bearer <token>`
-
-### Example Response
-
-- `captain` (object):
-  - `fullname` (object).
-    - `firstname` (string): Captain's first name (minimum 3 characters).
-    - `lastname` (string): Captain's last name (minimum 3 characters).   
-  - `email` (string): Captain's email address (must be a valid email).
-  - `vehicle` (object):
-    - `color` (string): Vehicle color.
-    - `plate` (string): Vehicle plate number.
-    - `capacity` (number): Vehicle passenger capacity.
-    - `vehicleType` (string): Type of vehicle.
-
-## `/captains/logout` Endpoint
-
-### Description
-
-Logout the current captain and blacklist the token provided in cookie or headers.
-
-### HTTP Method
-
-`GET`
-
-### Authentication
-
-Requires a valid JWT token in the Authorization header or cookie.
-
-### Example Response
-
-- `message` (string): Logout successfully.
-
-
-## `/maps/get-coordinates` Endpoint
-
-### Description
-
-Retrieves the coordinates (latitude and longitude) for a given address.
-
-### HTTP Method
-
-`GET`
-
-### Request Parameters
-
-- `address` (string, required): The address for which to retrieve coordinates.
-
-### Example Request
-
-GET `/maps/get-coordinates?address=1600+Amphitheatre+Parkway,+Mountain+View,+CA`
-
-### Example Response
-
-```json
 {
-  "ltd": 37.4224764,
-  "lng": -122.0842499
+  "fullname": { "firstname": "John", "lastname": "Doe" },
+  "email": "john@example.com",
+  "password": "password123"
 }
 ```
 
-### Error Response
+#### Example: Login
 
-- `400 Bad Request`: If the address parameter is missing or invalid.
-- `404 Not Found`: If the coordinates for the given address could not be found.
+```http
+POST /users/login
+Content-Type: application/json
 
-```json
 {
-  "message": "Coordinates not found"
+  "email": "john@example.com",
+  "password": "password123"
 }
 ```
 
-## `/maps/get-distance-time` Endpoint
+---
 
-### Description
+### Transactions
 
-Retrieves the distance and estimated travel time between two locations.
+| Endpoint                      | Method | Description                                   |
+|-------------------------------|--------|-----------------------------------------------|
+| `/transactions`               | GET    | Get paginated, filtered transactions          |
+| `/transactions/export`        | GET    | Export filtered transactions as CSV           |
 
-### HTTP Method
+#### Example: Get Transactions
 
-`GET`
-
-### Request Parameters
-
-- `origin` (string, required): The starting address or location.
-- `destination` (string, required): The destination address or location.
-
-### Example Request
-
-```
-GET /maps/get-distance-time?origin=New+York,NY&destination=Los+Angeles,CA
+```http
+GET /transactions?page=1&category=Revenue&status=Paid
+Authorization: Bearer <token>
 ```
 
-### Example Response
+#### Example: Export CSV
 
-```json
-{
-  "distance": {
-    "text": "2,789 miles",
-    "value": 4486540
-  },
-  "duration": {
-    "text": "1 day 18 hours",
-    "value": 154800
-  }
-}
+```http
+GET /transactions/export?columns=id,date,amount,category&status=Paid
+Authorization: Bearer <token>
 ```
 
-### Error Response
+---
 
-- `400 Bad Request`: If the origin or destination parameter is missing or invalid.
-- `404 Not Found`: If the distance and time for the given locations could not be found.
+### Analytics
 
-```json
-{
-  "message": "No routes found"
-}
+| Endpoint                                 | Method | Description                       |
+|-------------------------------------------|--------|-----------------------------------|
+| `/transactions/analytics/summary`         | GET    | Get revenue, expense, count stats |
+| `/transactions/analytics/category`        | GET    | Get category breakdown (pie)      |
+| `/transactions/analytics/trend`           | GET    | Get revenue/expense trend (line)  |
+
+---
+
+## Usage Examples
+
+### Register a User
+
+```sh
+curl -X POST http://localhost:4000/users/register \
+  -H "Content-Type: application/json" \
+  -d '{"fullname":{"firstname":"Jane","lastname":"Smith"},"email":"jane@example.com","password":"password123"}'
 ```
 
-## `/maps/get-suggestions` Endpoint
+### Login
 
-### Description
-
-Retrieves autocomplete suggestions for a given input string.
-
-### HTTP Method
-
-`GET`
-
-### Request Parameters
-
-- `input` (string, required): The input string for which to retrieve suggestions.
-
-### Example Request
-
-```
-GET /maps/get-suggestions?input=1600+Amphitheatre
+```sh
+curl -X POST http://localhost:4000/users/login \
+  -H "Content-Type: application/json" \
+  -d '{"email":"jane@example.com","password":"password123"}'
 ```
 
-### Example Response
+### Get Transactions (with JWT)
 
-```json
-[
-  "1600 Amphitheatre Parkway, Mountain View, CA, USA",
-  "1600 Amphitheatre Pkwy, Mountain View, CA 94043, USA"
-]
+```sh
+curl -H "Authorization: Bearer <token>" http://localhost:4000/transactions
 ```
 
-### Error Response
+### Export CSV
 
-- `400 Bad Request`: If the input parameter is missing or invalid.
-- `500 Internal Server Error`: If there is an error retrieving suggestions.
-
-```json
-{
-  "message": "Unable to fetch suggestions"
-}
+```sh
+curl -H "Authorization: Bearer <token>" "http://localhost:4000/transactions/export?columns=id,date,amount,category"
 ```
 
-## `/rides/create` Endpoint
+---
 
-### Description
+## Frontend Usage
 
-Creates a new ride with the provided information.
+- Start the frontend with `npm run frontend` or `npm run dev` (from root).
+- Access the app at [http://localhost:5173](http://localhost:5173).
+- Use the UI to login, view transactions, filter, export CSV, and view analytics.
 
-### HTTP Method
+---
 
-`POST`
+## Backend Usage
 
-### Authentication
+- Start the backend with `npm run server` or `npm run dev` (from root).
+- API runs at [http://localhost:4000](http://localhost:4000).
+- All endpoints require JWT authentication except `/users/register` and `/users/login`.
 
-Requires a valid JWT token in the Authorization header:
-`Authorization: Bearer <token>`
+---
 
-### Request Body
+## CSV Export
 
-The request body should be in JSON format and include the following fields:
+- Use the "Export CSV" button in the Transactions page.
+- Select columns and filters as needed.
+- The downloaded CSV will match your current filters and column selection.
 
-- `pickup` (string, required): The pickup address (minimum 3 characters).
-- `destination` (string, required): The destination address (minimum 3 characters).
-- `vehicleType` (string, required): The type of vehicle (must be 'auto', 'car', or 'moto').
+---
 
-### Example Response
+## **📋 Contribution Guidelines**
+We welcome contributions to improve this project! 🛠️  
+1. Fork the repository.  
+2. Create a new branch for your feature or bugfix:
+   ```bash
+   git checkout -b feature/your-feature-name
+   ```
+3. Commit your changes and create a pull request.
 
-- `ride` (object):
-  - `user` (string): User ID.
-  - `pickup` (string): Pickup address.
-  - `destination` (string): Destination address.
-  - `fare` (number): Fare amount.
-  - `status` (string): Ride status.
-  - `duration` (number): Duration in seconds.
-  - `distance` (number): Distance in meters.
-  - `otp` (string): OTP for the ride.
+---
 
-### Error Response
-
-- `400 Bad Request`: If any required field is missing or invalid.
-- `500 Internal Server Error`: If there is an error creating the ride.
-
-```json
-{
-  "message": "Error message"
-}
-```
-
-
-## `/rides/get-fare` Endpoint
-
-### Description
-
-Retrieves the fare estimate for a ride between the provided pickup and destination addresses.
-
-### HTTP Method
-
-`GET`
-
-### Authentication
-
-Requires a valid JWT token in the Authorization header:
-`Authorization:
-
- Bear
-
-er <token>`
-
-### Request Parameters
-
-- `pickup` (string, required): The pickup address (minimum 3 characters).
-- `destination` (string, required): The destination address (minimum 3 characters).
-
-### Example Request
-
-```
-GET /rides/get-fare?pickup=1600+Amphitheatre+Parkway,+Mountain+View,+CA&destination=1+Infinite+Loop,+Cupertino,+CA
-```
-
-### Example Response
-
-```json
-{
-  "auto": 50.0,
-  "car": 75.0,
-  "moto": 40.0
-}
-```
-
-### Error Response
-
-- `400 Bad Request`: If any required parameter is missing or invalid.
-- `500 Internal Server Error`: If there is an error calculating the fare.
-
-```json
-{
-  "message": "Error message"
-}
-```
+## **📧 Contact**
+If you have any questions or suggestions, feel free to reach out:    
+- **LinkedIn**: [Pranav's LinkedIn](www.linkedin.com/in/pranavlondhe)
+---
