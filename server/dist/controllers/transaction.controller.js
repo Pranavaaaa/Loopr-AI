@@ -43,7 +43,6 @@ const exportCSV = async (req, res) => {
             ];
         }
         // --- End filtering logic ---
-        console.log("Exporting transactions with filter:", filter);
         const transactions = await Transaction.find(filter).lean();
         const parser = new Parser({ fields });
         const csv = parser.parse(transactions);
@@ -113,7 +112,6 @@ export const getAllTransactions = async (req, res) => {
         });
     }
     catch (error) {
-        console.error("Error fetching transactions:", error);
         res.status(500).json({ message: "Internal Server Error" });
     }
 };
