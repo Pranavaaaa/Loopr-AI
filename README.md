@@ -8,21 +8,18 @@ Includes authentication, transaction management, analytics dashboard, and CSV ex
 ## Table of Contents
 
 - [Features](#features)
-- [Tech Stack](#tech-stack)
-- [Live Demo](#live-demo)
-- [Folder Structure](#folder-structure)
-- [Setup Instructions](#setup-instructions)
+- [Tech Stack](#️-tech-stack)
+- [Live Demo](#-live-demo)
+- [Folder Structure](#-folder-structure)
+- [Setup Instructions](#-how-to-run-the-project)
 - [Scripts](#scripts)
 - [API Endpoints](#api-endpoints)
-  - [User Authentication](#user-authentication)
-  - [Transactions](#transactions)
-  - [Analytics](#analytics)
 - [Usage Examples](#usage-examples)
 - [Frontend Usage](#frontend-usage)
 - [Backend Usage](#backend-usage)
 - [CSV Export](#csv-export)
-- [Contribution Guidelines](#contribution-guidelines)
-- [Contact](#contact)
+- [Contribution Guidelines](#-contribution-guidelines)
+- [Contact](#-contact)
 - [License](#license)
 
 ---
