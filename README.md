@@ -50,6 +50,7 @@ Use the following login to access the dashboard
 🔑 Password: demo123
 
 Frontend: https://loopr-ai-frontend.onrender.com
+
 Backend API: https://loopr-ai-backend.onrender.com
 
 🔐 Use credentials above to log in and test all features.
