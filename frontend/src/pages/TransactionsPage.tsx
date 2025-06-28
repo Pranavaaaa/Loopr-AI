@@ -87,10 +87,16 @@ const TransactionsPage: React.FC = () => {
     }));
   };
 
-  const handleRangeChange = (dates: any, dateStrings: [string, string]) => {
+  const handleRangeChange = (
+    dates: [dayjs.Dayjs | null, dayjs.Dayjs | null] | null,
+    dateStrings: [string, string]
+  ) => {
     setFilters((prev) => ({
       ...prev,
-      dateRange: dateStrings,
+      dateRange:
+        !dates || dateStrings[0] === "" || dateStrings[1] === ""
+          ? []
+          : dateStrings,
       page: 1,
     }));
   };

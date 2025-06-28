@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { 
   Card, 
   Row, 
@@ -12,7 +12,6 @@ import {
 } from "antd";
 import {
   MenuOutlined,
-  DashboardOutlined,
   LogoutOutlined,
   TransactionOutlined,
 } from "@ant-design/icons";
