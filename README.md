@@ -49,8 +49,8 @@ Use the following login to access the dashboard
 📧 Email:    analyst@looprai-demo.com  
 🔑 Password: demo123
 
-Frontend: https://looprai-frontend-gttr.onrender.com
-Backend API: https://loopr-ai.onrender.com
+Frontend: [https://looprai-frontend-gttr.onrender.com](https://loopr-ai-frontend.onrender.com)
+Backend API: [https://loopr-ai.onrender.com](https://loopr-ai-backend.onrender.com)
 
 🔐 Use credentials above to log in and test all features.
 
